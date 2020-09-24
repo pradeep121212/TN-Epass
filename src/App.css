@@ -1,3 +1,15 @@
+.navbar-dark{
+  background-color:#512DAB ;
+}
+body { 
+  padding-top: 65px; 
+}
+.table td {
+  text-align: center;   
+}
+.table th {
+  text-align: center;   
+}
 .App {
   text-align: center;
 }
