@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/TN-Epass/precache-manifest.f69b7de17c6e28fe90447ae05d7175a4.js"
+  "/TN-Epass/precache-manifest.cbac72ee6c17f1c3f6ee5f754f50d1f3.js"
 );
 
 self.addEventListener('message', (event) => {
