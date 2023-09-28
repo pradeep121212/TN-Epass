@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import EPassDataService from '../api/EPassDataService';
 import AuthenticationService from './authentication/AuthenticationService';
 import { Alert } from 'react-bootstrap';
-
+import { useNavigate, useParams } from 'react-router-dom';
+//import {  } from "react-router-dom";
 const data = { createdAt: "Monday", status: "pending", numberOfPassengers: "3", vehicleType: "Bike", vehicleNo: "TN09AQ7743", toAddressLine1: "line 1", toAddressLine2: "Line2", fromAddressLine1: "line 1", fromAddressLine2: "Line2", fromDistrict: "Chennai", toDistrict: "Sivagangai", reason: "Stranded in a new place", passengers: [{ name: 'pradeep', age: 21, aadhar: 865726279191 }, { name: 'pradeep', age: 21, aadhar: 865726279191 }] }
     ;
 
@@ -16,7 +17,7 @@ class AdminViewComponent extends Component {
         };
     }
     componentDidMount() {
-        EPassDataService.findPassById(this.props.match.params.id)
+        EPassDataService.findPassById(this.props.params.id)
             .then(
                 (response) => {
                     console.log(response.data);
@@ -37,7 +38,7 @@ class AdminViewComponent extends Component {
             .catch(
                 () => {
                     AuthenticationService.logoutAdmin();
-                    this.props.history.push('/adminDashboard');
+                    this.props.navigate('/adminDashboard');
 
                 }
             );
@@ -45,8 +46,8 @@ class AdminViewComponent extends Component {
     render() {
         let data = this.state.data;
         const changeStatus = (status) => {
-            EPassDataService.updateStatus(this.props.match.params.id, status)
-                .then(() => this.props.history.push(`/adminDashboard/`))
+            EPassDataService.updateStatus(this.props.params.id, status)
+                .then(() =>  this.props.navigate(`/adminDashboard/`))
         }
         return (
             <body>
@@ -261,5 +262,9 @@ class AdminViewComponent extends Component {
         );
     }
 }
-
-export default AdminViewComponent;
+function AdminViewComponentWithNavigate(props) {
+    let navigate = useNavigate();
+    let params = useParams();
+    return <AdminViewComponent {...props} navigate={navigate} params={params} />
+}
+export default AdminViewComponentWithNavigate;

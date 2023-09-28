@@ -1,2 +1,2 @@
-export const API_URL = 'http://tnepass.us-west-2.elasticbeanstalk.com';
-export const JPA_API_URL = 'http://tnepass.us-west-2.elasticbeanstalk.com/jpa';
+export const API_URL = 'http://localhost:8080';
+export const JPA_API_URL = 'http://localhost:8080/jpa';

@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import AdminLoginModal from './AdminLoginModal';
 import { Modal } from "react-bootstrap";
-import { withRouter } from 'react-router-dom';
+
 import AuthenticationService from './authentication/AuthenticationService';
 
+import {
+    useLocation,
+    useNavigate,
+    useParams
+  } from "react-router-dom";
+
+function withRouter(Component) {
+    function ComponentWithRouterProp(props) {
+      let location = useLocation();
+      let navigate = useNavigate();
+      let params = useParams();
+      return (
+        <Component
+          {...props}
+          router={{ location, navigate, params }}
+        />
+      );
+    }
+  
+    return ComponentWithRouterProp;
+  }
 class HeaderComponent extends Component {
 
     constructor() {
@@ -17,21 +38,19 @@ class HeaderComponent extends Component {
 
     handleClose = (a) => this.setState({ showAdminLogin: false });
     handleShow = (a) => this.setState({ showAdminLogin: true });
-
     handleLogin = () => {
         this.setState({ showAdminLogin: false });
         this.setState({ isAdminLogin: AuthenticationService.isAdminLoggedIn() });
         this.setState({ isUserLogin: AuthenticationService.isUserLoggedIn() });
 
-        this.props.history.push('/adminDashboard');
+        this.props.navigate('/adminDashboard');
     };
-
     logout = () => {
         AuthenticationService.logoutUser();
         AuthenticationService.logoutAdmin();
         // AuthenticationService.refreshJwtAuthenticationService();
         this.setState({ isAdminLogin: AuthenticationService.isAdminLoggedIn() });
-        this.props.history.push('/adminDashboard');
+        this.props.navigate('/adminDashboard');
     }
     componentDidMount() {
         this.setState({
@@ -78,4 +97,9 @@ class HeaderComponent extends Component {
         );
     }
 }
-export default withRouter(HeaderComponent);
+
+function HeaderComponentWithNavigate(props) {
+    let navigate = useNavigate();
+    return <HeaderComponent {...props} navigate={navigate} />
+}
+export default withRouter(HeaderComponentWithNavigate);

@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AuthenticationService from './authentication/AuthenticationService';
 import EPassDataService from '../api/EPassDataService';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const districts = [
     "Select",
@@ -96,7 +97,7 @@ class ApplyFormComponent extends Component {
             fd.append('file', event.currentTarget.files[0], "blabla");
             EPassDataService.postImage(fd)
                 .then((res) => {
-                    if (name === 'p1') {
+                    if (name == 'p1') {
                         this.setState({ p1document: res.data });
                         this.setState({ p1documentName: thumbName });
 
@@ -110,11 +111,9 @@ class ApplyFormComponent extends Component {
         }
 
         const changePassengers = (value) => {
-
-            this.setState({ passengerType: value.target.value });
-            let maxPassengers = parseInt(`${value.target.value}`.split(" ")[0]);
+            let maxPassengers = parseInt(`${this.state.passengerType.value}`.split(" ")[0]);
             this.setState({ passengers: maxPassengers });
-            console.log(value.target.value);
+            console.log(maxPassengers);
         }
         let passengerItems = [];
         for (var i = 0; i < this.state.passengers; i++) {
@@ -159,8 +158,6 @@ class ApplyFormComponent extends Component {
                 </div>
             );
         }
-
-        console.log(passengerItems);
 
         this.onSubmit = (values) => {
 
@@ -214,7 +211,7 @@ class ApplyFormComponent extends Component {
             })
                 .then((res) => {
                     console.log(res);
-                    this.props.history.push('/userDashboard/');
+                    this.props.navigate('/userDashboard/');
                 });
 
 
@@ -230,17 +227,17 @@ class ApplyFormComponent extends Component {
                 errors.fromAddress1 = "Address is a must"
             }
 
-            if (values.fromDistrict === values.toDistrict) {
+            if (values.fromDistrict == values.toDistrict) {
                 errors.fromDistrict = "From and to district cannot be the same.";
             }
             if (values.fromDistrict == "Select" || values.toDistrict == "Select") {
                 errors.fromDistrict = "Select a district";
             }
-            if (values.reason === "Marriage" && this.state.marriagedocumentName === null) {
+            if (values.reason == "Marriage" && this.state.marriagedocumentName == null) {
                 errors.reason = "For Marriage You Have To Provide The Marriage Invitation"
             }
 
-            if (this.state.p1documentName === null) {
+            if (this.state.p1documentName == null) {
                 errors.reason = "Provide A Proof Document Of Passenger 1"
             }
 
@@ -255,7 +252,18 @@ class ApplyFormComponent extends Component {
             }
 
 
+            // if (!values.description) {
+            //     errors.description = "Enter Description"
+            // }
+            // else if (values.description.length < 5) {
+            //     errors.description = "less than 5 chars"
 
+            // }
+
+            // if (!moment(values.targetDate).isValid()) {
+            //     errors.targetDate = "Invalid Date"
+
+            // }
             return errors;
         }
 
@@ -311,7 +319,7 @@ class ApplyFormComponent extends Component {
                                                     <div class="row  justify-content-center">
                                                         <h3>Reason</h3>
                                                     </div>
-                                                    <select class="form-control" name="reason" onChange={(event) => { props.values.reason = event.target.value; this.setState({ isMarriage: event.target.value === "Marriage" }) }}>
+                                                    <select class="form-control" name="reason" onChange={(event) => { props.values.reason = event.target.value; this.setState({ isMarriage: event.target.value == "Marriage" }) }}>
                                                         <option value="Stranded in a new place">Stranded in a new place</option>
                                                         <option value="Marriage">Marriage</option>
                                                         <option value="Death">Death</option>
@@ -399,7 +407,7 @@ class ApplyFormComponent extends Component {
                                                         <h6>Vehicle Type</h6>
                                                     </label>
                                                     <div class="col-md-6">
-                                                        <select class="form-control" onChange={changePassengers} value={this.state.passengerType} name="vehicle">
+                                                        <select class="form-control" onChange={(value) => changePassengers(value)} ref={(value) => this.state.passengerType = value} name="vehicle">
                                                             <option value="1 Bike">Bike</option>
                                                             <option value="3 Car">Car</option>
                                                             <option value="5 Car-7-Seater">Car (7 seater)</option>
@@ -473,5 +481,8 @@ class ApplyFormComponent extends Component {
 
 
 }
-
-export default ApplyFormComponent;
+function ApplyFormComponentWithNavigate(props) {
+    let navigate = useNavigate();
+    return <ApplyFormComponent {...props} navigate={navigate} />
+}
+export default ApplyFormComponentWithNavigate;

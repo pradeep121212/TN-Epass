@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EPassDataService from '../api/EPassDataService';
 import AuthenticationService from './authentication/AuthenticationService';
-
+import { useNavigate } from 'react-router-dom';
 const data = [
     { createdAt: "Monday", status: "pending", numberOfPassengers: "3", fromDistrict: "Chennai", toDistrict: "Sivagangai", reason: "Stranded in a new place" },
 ];
@@ -27,7 +27,7 @@ class AdminDashboard extends Component {
             .catch(
                 () => {
                     AuthenticationService.logoutAdmin();
-                    this.props.history.push('/adminDashboard');
+                    this.props.navigate('/adminDashboard');
 
                 }
             );
@@ -37,7 +37,7 @@ class AdminDashboard extends Component {
     render() {
 
         const handleView = (id) => {
-            this.props.history.push(`/adminDashboard/View/${id}`);
+            this.props.navigate(`/adminDashboard/View/${id}`);
 
         }
 
@@ -149,5 +149,8 @@ class AdminDashboard extends Component {
     }
 
 }
-
-export default AdminDashboard;
+function AdminDashboardWithNavigate(props) {
+    let navigate = useNavigate();
+    return <AdminDashboard {...props} navigate={navigate} />
+}
+export default AdminDashboardWithNavigate;

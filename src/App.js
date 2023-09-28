@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes,Navigate, Link } from 'react-router-dom';
+
+
+import AuthenticationService from './components/authentication/AuthenticationService';
 
 import logo from './logo.svg';
 import './App.css';
@@ -15,27 +18,50 @@ import AdminAuthenticatedRoute from './components/authentication/AdminAuthentica
 import UserAuthenticatedRoute from './components/authentication/UserAuthenticatedRoute';
 import AdminLoginModal from './components/AdminLoginModal';
 import LoginRoute from './components/LoginRoute';
-
 // import history from './components/history'
+
+function UserAuthenticatedRouteFun({children}){
+  if (AuthenticationService.isUserLoggedIn()) {
+    return children;
+}
+else {
+    return <Navigate to="/login" />
+}
+  
+}
+
+function AdminAuthenticatedRouteFun({children}){
+  if (AuthenticationService.isAdminLoggedIn()) {
+    return children;
+}
+else {
+    return <Navigate to="/login" />
+}
+  
+}
+
 class App extends Component {
+
+ 
+
   render() {
     return (
       <div className="App">
         <Router>
           <>
             <HeaderComponent />
-            <Switch>
+            <Routes>
+              <Route path="/admin" exact element={<AdminLoginModal/>} />
 
-              <LoginRoute path="/" exact component={LoginPageComponent} />
-              <LoginRoute path="/login" component={LoginPageComponent} />
-              <UserAuthenticatedRoute path="/userDashboard" exact component={UserDashboard} />
-              <UserAuthenticatedRoute path="/userDashboard/applyPass" component={ApplyFormComponent} />
+              <Route path="/" exact element={<LoginPageComponent/>} />
+              <Route path="/login" element={<LoginPageComponent/>} />
+              <Route path="/userDashboard" exact element={<UserAuthenticatedRouteFun><UserDashboard/></UserAuthenticatedRouteFun>} />
+              <Route path="/userDashboard/applyPass" element={<UserAuthenticatedRouteFun><ApplyFormComponent/></UserAuthenticatedRouteFun>} />
 
-              <AdminAuthenticatedRoute path="/adminDashboard" exact component={AdminDashboard} />
-              <AdminAuthenticatedRoute path="/adminDashboard/View/:id" component={AdminViewComponent} />
-              <Route component={ErrorComponent} />
-
-            </Switch>
+              <Route path="/adminDashboard" exact element={<AdminAuthenticatedRouteFun><AdminDashboard/></AdminAuthenticatedRouteFun>} />
+              <Route path="/adminDashboard/View/:id" element={<AdminAuthenticatedRouteFun><AdminViewComponent/></AdminAuthenticatedRouteFun>} />
+              <Route element={<ErrorComponent/>} />
+            </Routes>
 
           </>
         </Router>

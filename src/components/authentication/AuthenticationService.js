@@ -37,6 +37,7 @@ class AuthenticationService {
     // }
 
     initialGuestLogin() {
+        console.log("Guest Login !");
         this.executeJwtAuthenticationService("guest", "guest")
             .then((res) => {
                 this.registerSuccessfulLoginGuest("guest", res.data.token);

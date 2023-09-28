@@ -1,9 +1,31 @@
 
 import React, { Component } from 'react';
 import { Modal, Button } from "react-bootstrap";
-import { withRouter } from 'react-router-dom';
+
 import { BrowserRouter as Router, HashHistory, Route, Switch, Link } from 'react-router-dom';
 import AuthenticationService from './authentication/AuthenticationService';
+
+import {
+    useLocation,
+    useNavigate,
+    useParams
+  } from "react-router-dom";
+
+function withRouter(Component) {
+    function ComponentWithRouterProp(props) {
+      let location = useLocation();
+      let navigate = useNavigate();
+      let params = useParams();
+      return (
+        <Component
+          {...props}
+          router={{ location, navigate, params }}
+        />
+      );
+    }
+  
+    return ComponentWithRouterProp;
+  }
 
 class AdminLoginModal extends Component {
     constructor(props) {
@@ -22,7 +44,7 @@ class AdminLoginModal extends Component {
 
         AuthenticationService.executeJwtAuthenticationService(this.state.userName, this.state.password)
             .then((res) => {
-                AuthenticationService.registerSuccessfulLoginAdmin("admin", res.data.token);
+                AuthenticationService.registerSuccessfulLoginAdmin("admin", res.data.token); 
                 // AuthenticationService.registerSuccessfulLoginAdmin(this.state.userName, this.state.password);
                 this.props.onLogin();
 

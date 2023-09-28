@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import AuthenticationService from './authentication/AuthenticationService';
+import { Navigate } from "react-router-dom";
 
 
 
@@ -11,11 +12,11 @@ class LoginRoute extends Component {
 
         }
         else if (AuthenticationService.isAdminLoggedIn()) {
-            return <Redirect to="/adminDashboard" />
+            return <Navigate to="/adminDashboard" />
 
         }
         else {
-            return <Redirect to="/userDashboard" />
+            return <Navigate to="/userDashboard" />
 
         }
     }

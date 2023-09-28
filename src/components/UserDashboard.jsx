@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EPassDataService from '../api/EPassDataService';
 import AuthenticationService from './authentication/AuthenticationService';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { createdAt: "Monday", status: "pending", numberOfPassengers: "3", fromDistrict: "Chennai", toDistrict: "Sivagangai", reason: "Stranded in a new place" },
@@ -25,11 +26,11 @@ class UserDashboard extends Component {
         this.state = { data: [] };
     }
     handleApplyPass = () => {
-        this.props.history.push('/userDashboard/ApplyPass');
+        this.props.navigate('/userDashboard/ApplyPass');
     }
 
     componentDidMount() {
-        EPassDataService.fetchAllPassesByMobileNo(AuthenticationService.getLoggedInMobileNo())
+        EPassDataService.fetchAllPassesByMobileNo("9003085016")
             .then((res) => {
                 console.log(res);
                 this.setState({ data: res.data });
@@ -37,7 +38,7 @@ class UserDashboard extends Component {
             .catch(
                 () => {
                     AuthenticationService.logoutUser();
-                    this.props.history.push('/adminDashboard');
+                    this.props.navigate('/adminDashboard');
                 }
             );;
     }
@@ -70,7 +71,7 @@ class UserDashboard extends Component {
                         </span>
                             </h5>}
 
-                            {data.length != 0 && <div class="table-responsive">
+                            <div class="table-responsive">
                                 <table class="table">
 
                                     <thead>
@@ -110,7 +111,7 @@ class UserDashboard extends Component {
                                     </tbody>
 
                                 </table>
-                            </div>}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,5 +162,9 @@ class MyDoc extends Component {
     }
 }
 
+function UserDashboardWithNavigate(props) {
+    let navigate = useNavigate();
+    return <UserDashboard {...props} navigate={navigate} />
+}
 
-export default UserDashboard;
+export default UserDashboardWithNavigate;

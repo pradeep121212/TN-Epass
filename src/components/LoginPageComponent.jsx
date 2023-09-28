@@ -3,7 +3,7 @@ import HeaderComponent from './HeaderComponent';
 import UserLoginComponent from './UserLoginComponent';
 import AuthenticationService from './authentication/AuthenticationService';
 import OTPService from '../api/OTPService';
-
+import { useNavigate } from 'react-router-dom';
 
 
 class LoginPageComponent extends Component {
@@ -43,7 +43,7 @@ class LoginPageComponent extends Component {
         });
     }
 
-    validateOtp = (enteredOtp) => {
+    validateOtp = ( enteredOtp) => {
         console.log(this.props);
         OTPService.validateOTP(this.state.mobileNo, enteredOtp)
             .then(
@@ -56,7 +56,7 @@ class LoginPageComponent extends Component {
                             .then((res) => {
                                 console.log(res.data.token);
                                 AuthenticationService.registerSuccessfulLoginUser(`${this.state.mobileNo}`, res.data.token);
-                                this.props.history.push(`/userDashboard/`);
+                                this.props.navigate(`/userDashboard/`);
 
                             });
 
@@ -70,6 +70,7 @@ class LoginPageComponent extends Component {
     }
 
     render() {
+        
         return (
             <>
                 <div class="container">
@@ -132,5 +133,10 @@ function DosAndDonts() {
     );
 }
 
+function LoginPageComponentWithNavigate(props) {
+    let navigate = useNavigate();
+    return <LoginPageComponent {...props} navigate={navigate} />
+}
 
-export default LoginPageComponent; 
+
+export default LoginPageComponentWithNavigate; 
