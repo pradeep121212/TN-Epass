@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b302485.css",
-    "main.js": "/static/js/main.bfb71a3e.js",
-    "static/media/logo.svg": "/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
-    "index.html": "/index.html",
-    "main.4b302485.css.map": "/static/css/main.4b302485.css.map",
-    "main.bfb71a3e.js.map": "/static/js/main.bfb71a3e.js.map"
+    "main.css": "/TN-Epass/login/static/css/main.4b302485.css",
+    "main.js": "/TN-Epass/login/static/js/main.e0ddc9d7.js",
+    "static/media/logo.svg": "/TN-Epass/login/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
+    "index.html": "/TN-Epass/login/index.html",
+    "main.4b302485.css.map": "/TN-Epass/login/static/css/main.4b302485.css.map",
+    "main.e0ddc9d7.js.map": "/TN-Epass/login/static/js/main.e0ddc9d7.js.map"
   },
   "entrypoints": [
     "static/css/main.4b302485.css",
-    "static/js/main.bfb71a3e.js"
+    "static/js/main.e0ddc9d7.js"
   ]
 }
