@@ -1,23 +1,14 @@
 {
   "files": {
-    "main.css": "/TN-Epass/static/css/main.91c69624.chunk.css",
-    "main.js": "/TN-Epass/static/js/main.716ccbea.chunk.js",
-    "main.js.map": "/TN-Epass/static/js/main.716ccbea.chunk.js.map",
-    "runtime-main.js": "/TN-Epass/static/js/runtime-main.c2eb5acc.js",
-    "runtime-main.js.map": "/TN-Epass/static/js/runtime-main.c2eb5acc.js.map",
-    "static/js/2.61290711.chunk.js": "/TN-Epass/static/js/2.61290711.chunk.js",
-    "static/js/2.61290711.chunk.js.map": "/TN-Epass/static/js/2.61290711.chunk.js.map",
-    "index.html": "/TN-Epass/index.html",
-    "precache-manifest.cbac72ee6c17f1c3f6ee5f754f50d1f3.js": "/TN-Epass/precache-manifest.cbac72ee6c17f1c3f6ee5f754f50d1f3.js",
-    "service-worker.js": "/TN-Epass/service-worker.js",
-    "static/css/main.91c69624.chunk.css.map": "/TN-Epass/static/css/main.91c69624.chunk.css.map",
-    "static/js/2.61290711.chunk.js.LICENSE.txt": "/TN-Epass/static/js/2.61290711.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/TN-Epass/static/media/logo.5d5d9eef.svg"
+    "main.css": "/static/css/main.4b302485.css",
+    "main.js": "/static/js/main.bfb71a3e.js",
+    "static/media/logo.svg": "/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
+    "index.html": "/index.html",
+    "main.4b302485.css.map": "/static/css/main.4b302485.css.map",
+    "main.bfb71a3e.js.map": "/static/js/main.bfb71a3e.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.c2eb5acc.js",
-    "static/js/2.61290711.chunk.js",
-    "static/css/main.91c69624.chunk.css",
-    "static/js/main.716ccbea.chunk.js"
+    "static/css/main.4b302485.css",
+    "static/js/main.bfb71a3e.js"
   ]
 }
